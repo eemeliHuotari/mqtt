@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy the script and requirements.txt
 COPY requirements.txt .
-COPY your_script.py .
+COPY write_iot.py .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
