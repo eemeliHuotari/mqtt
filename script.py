@@ -17,6 +17,7 @@ bucket = "sensor-data"
 MQTT_BROKER = "otitdell.otit.fi"
 MQTT_PORT = 60020
 MQTT_TOPIC = "sensor/data"
+LED_TOPIC = "pico/led"
 
 
 def on_message(client, userdata, message):
@@ -50,6 +51,12 @@ def on_message(client, userdata, message):
         write_api.write(bucket=bucket, org=org, record=point1)
         write_api.write(bucket=bucket, org=org, record=point2)
         write_api.write(bucket=bucket, org=org, record=point3)
+
+        if temperature > 25:
+            logging.info("turning LED ON")
+            client.publish(LED_TOPIC, 1)
+        else:
+            client.publish(LED_TOPIC, 0)
 
     except Exception as e:
         logging.error(f"Error processing message: {e}")
