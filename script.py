@@ -3,11 +3,12 @@ import paho.mqtt.client as mqtt
 from influxdb_client.client.write_api import SYNCHRONOUS
 from influxdb_client import Point
 import logging
+import os
 
 logging.basicConfig(level=logging.DEBUG)
 
 url = "https://influxdb-test-rahti2.2.rahtiapp.fi/"
-token = "DrfVCOb0fnfPLU8Q1Gjq11bBXeG0DQRF_fyKyjxgiGee7J_ywa3rt1Fc86XSJ-fWJmNzHBLTJPzCUa_w-v4JWQ=="
+token = os.getenv("INFLUXDB_TOKEN")
 org = "Iot2024"
 bucket = "sensor-data"
 
