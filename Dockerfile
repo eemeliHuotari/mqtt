@@ -1,18 +1,18 @@
 # Use the official Python image as the base image
 FROM python:3.9-slim
 
-# Set a working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy requirements.txt and install dependencies
-COPY requirements.txt /app/
+# Copy the requirements.txt and install dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the script into the container
-COPY script.py /app/
+# Copy your script into the container
+COPY script.py .
 
-# Expose any necessary ports (e.g., if debugging is needed or RAHTI2 requires it)
+# Expose any necessary ports (if applicable)
 EXPOSE 60020
 
-# Set the default command to run the script
+# Command to run the script
 CMD ["python", "script.py"]
