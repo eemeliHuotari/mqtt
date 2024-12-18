@@ -4,6 +4,7 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 from influxdb_client import Point
 import logging
 import os
+import ssl
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -67,7 +68,7 @@ try:
         mqtt_client.enable_logger()
 
         try:
-
+            mqtt_client.tls_set_context(ssl.create_default_context())
             mqtt_client.connect(MQTT_BROKER, MQTT_PORT, 60)
             mqtt_client.subscribe(MQTT_TOPIC)
             logging.info("Connected to MQTT Broker and subscribed to topic.")
