@@ -11,8 +11,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy your script into the container
 COPY script.py .
 
-# Expose any necessary ports (if applicable)
-EXPOSE 60020
-
 # Command to run the script
 CMD ["python", "script.py"]
