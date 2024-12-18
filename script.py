@@ -36,9 +36,19 @@ def on_message(client, userdata, message):
             .tag("pressure", pressure ) \
             .field("value", humidity)
 
-
+        point1 = Point("temperature") \
+            .field("value", temperature)
+                    
+        point2 = Point("pressure") \
+            .field("value", pressure)
+            
+        point3 = Point("humidity") \
+            .field("value", humidity)
+            
         write_api.write(bucket=bucket, org=org, record=point)
-        logging.info("Data written to InfluxDB")
+        write_api.write(bucket=bucket, org=org, record=point1)
+        write_api.write(bucket=bucket, org=org, record=point2)
+        write_api.write(bucket=bucket, org=org, record=point3)
 
     except Exception as e:
         logging.error(f"Error processing message: {e}")
