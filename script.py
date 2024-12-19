@@ -24,10 +24,16 @@ def on_message(client, userdata, message):
     try:
         payload = message.payload.decode("utf-8")
         values = payload.split(',')
-
+        
         if len(values) != 3:
             logging.error("Invalid data received. Expected 3 values (temperature, pressure, humidity).")
             return
+            
+        if temperature > 25:
+            logging.info("turning LED ON")
+            client.publish(LED_TOPIC, 1)
+        else:
+            client.publish(LED_TOPIC, 0)
 
         temperature = float(values[0])
         pressure = float(values[1])
@@ -51,12 +57,6 @@ def on_message(client, userdata, message):
         write_api.write(bucket=bucket, org=org, record=point1)
         write_api.write(bucket=bucket, org=org, record=point2)
         write_api.write(bucket=bucket, org=org, record=point3)
-
-        if temperature > 25:
-            logging.info("turning LED ON")
-            client.publish(LED_TOPIC, 1)
-        else:
-            client.publish(LED_TOPIC, 0)
 
     except Exception as e:
         logging.error(f"Error processing message: {e}")
