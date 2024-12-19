@@ -29,16 +29,16 @@ def on_message(client, userdata, message):
             logging.error("Invalid data received. Expected 3 values (temperature, pressure, humidity).")
             return
             
+        temperature = float(values[0])
+        pressure = float(values[1])
+        humidity = float(values[2])
+        
         if temperature > 25:
             logging.info("turning LED ON")
             client.publish(LED_TOPIC, 1)
         else:
             client.publish(LED_TOPIC, 0)
-
-        temperature = float(values[0])
-        pressure = float(values[1])
-        humidity = float(values[2])
-        
+            
         point = Point("sensor_data") \
             .tag("temperature", temperature) \
             .tag("pressure", pressure ) \
